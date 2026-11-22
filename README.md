@@ -27,7 +27,7 @@ wallpaper on a dark background.
 
 | Music | App drawer |
 | --- | --- |
-| ![Music](screenshots/music.png) | ![App drawer](screenshots/app-drawer.png) |
+| ![Music](screenshots/music.png) | ![App drawer](screenshots/app.png) |
 
 ## Files
 
