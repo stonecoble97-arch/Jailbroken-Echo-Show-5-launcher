@@ -80,7 +80,6 @@ public class HomeActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if (mView != null && mView.closeDrawer()) return;
         // A launcher stays on the home screen when Back is pressed.
     }
 }

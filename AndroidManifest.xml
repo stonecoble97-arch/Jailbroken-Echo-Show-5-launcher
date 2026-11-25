@@ -41,5 +41,9 @@
         <activity
             android:name=".MusicActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".AppsMenuActivity"
+            android:exported="false" />
     </application>
 </manifest>

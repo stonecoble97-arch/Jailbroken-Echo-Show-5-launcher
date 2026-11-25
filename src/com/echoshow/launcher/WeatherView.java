@@ -42,6 +42,7 @@ public class WeatherView extends View {
         @Override public void run() { invalidate(); mHandler.postDelayed(this, 1000L); }
     };
 
+    private NightOverlay mNightOverlay;
     private long mAnimStart;
     private WeatherData mWeather = new WeatherData();
 
@@ -82,6 +83,7 @@ public class WeatherView extends View {
         mButtonTextPaint.setTypeface(regular);
         mButtonTextPaint.setTextAlign(Paint.Align.CENTER);
 
+        mNightOverlay = new NightOverlay(this);
         mAnimStart = System.currentTimeMillis();
         mHandler.post(mTick);
         mHandler.post(mAnimFrame);
@@ -89,6 +91,9 @@ public class WeatherView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
+        if (e.getActionMasked() == MotionEvent.ACTION_DOWN && mNightOverlay.isActive()) {
+            NightMode.suppress(30000L);
+        }
         if (e.getActionMasked() == MotionEvent.ACTION_UP
                 && getContext() instanceof Activity) {
             Activity a = (Activity) getContext();
@@ -189,5 +194,6 @@ public class WeatherView extends View {
         c.drawText("Radar", rb.centerX(), rb.centerY() + 10f * s, mButtonTextPaint);
 
         c.restoreToCount(sc);
+        mNightOverlay.draw(c, w, h, s);
     }
 }

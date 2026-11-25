@@ -40,6 +40,7 @@ public class MusicView extends View implements MusicPlayer.Listener {
     private final List<RectF> mRowHits = new ArrayList<RectF>();
     private final List<Integer> mRowIndices = new ArrayList<Integer>();
 
+    private NightOverlay mNightOverlay;
     private final Handler mHandler = new Handler();
     private final Runnable mTick = new Runnable() {
         @Override public void run() { invalidate(); mHandler.postDelayed(this, 500L); }
@@ -57,6 +58,7 @@ public class MusicView extends View implements MusicPlayer.Listener {
     public MusicView(Context c, AttributeSet a) { super(c, a); init(); }
 
     private void init() {
+        mNightOverlay = new NightOverlay(this);
         Typeface light = Typeface.create("sans-serif-light", Typeface.NORMAL);
         Typeface regular = Typeface.create("sans-serif", Typeface.NORMAL);
 
@@ -97,6 +99,9 @@ public class MusicView extends View implements MusicPlayer.Listener {
     @Override public void onChanged() { invalidate(); }
 
     @Override public boolean onTouchEvent(MotionEvent e) {
+        if (e.getActionMasked() == MotionEvent.ACTION_DOWN && mNightOverlay.isActive()) {
+            NightMode.suppress(30000L);
+        }
         float x = e.getX();
         float y = e.getY();
         if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
@@ -286,5 +291,6 @@ public class MusicView extends View implements MusicPlayer.Listener {
             mRowHits.add(row);
             mRowIndices.add(idx);
         }
+        mNightOverlay.draw(c, w, h, s);
     }
 }

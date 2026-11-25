@@ -1,33 +1,30 @@
 # Echo Show Launcher
 
-A launcher for the Echo Show 5 (960x480, Android 11) that recreates the stock
-Echo Show home screen: a large clock, live weather, date and an abstract
-wallpaper on a dark background.
+A launcher for the Echo Show 5 (960x480, Android 11) with the original Echo
+Show home screen plus a KFTV-style applications menu.
 
 ## Features
 
-- **Home screen** — big clock with AM/PM, date, live weather widget, wallpaper
-- **Live weather** — Open-Meteo (with automatic wttr.in fallback), device IP location,
-  cached offline with a 10-minute refresh
-- **Weather screen** — tap the weather widget for current conditions and a 5-day forecast
-- **Auto brightness** — uses the ambient light sensor; long-press the clock to toggle
-- **Music player** — tap the note icon at bottom-left. Includes preset internet radio
-  (**NCS Radio**, SomaFM Groove Salad, SomaFM Indie Pop Rocks) plus local audio files
-  after granting media access. Play/pause, next/previous, seek and track list.
-  A mini-player strip appears on the home screen while playing.
-- **App drawer** — tap the grid icon in the top-right, or swipe up, to see installed apps
-- **Animations** — intro fade/slide, breathing glow, rotating sun rays, weather icons,
-  minute-rollover fade, animated drawer and activity transitions
+- **Home screen** — original Echo Show look: large clock with AM/PM, live
+  weather, date, abstract teal orb wallpaper, and a music mini-strip
+- **Applications menu** — KFTV menu style with real app icons and gray app names
+  in a freely scrolling horizontal row. Open with the grid icon at top-right.
+- **Night overlay** — in near-total darkness (below 0.8 lux) the current screen
+  fades to pure black with a red clock/date; tap to wake, and it clears above
+  1.5 lux. It is an overlay on any screen, not a separate activity.
+- **Auto brightness** — ambient light sensor drives window brightness smoothly;
+  a manual system brightness change stops automatic control. Long-press the
+  clock to re-enable auto.
+- **Live weather** — Open-Meteo (with wttr.in fallback), IP-based location,
+  cached offline with a 10-minute refresh.
+- **Music player** — preset internet radio (NCS Radio, SomaFM) plus local audio;
+  transport controls, seek bar, track list, and a mini-player on the home screen.
+- **Animations** — intro fades, ambient glow, rotating sun rays, weather glyphs,
+  minute-rollover fade, and animated activity transitions.
 
-## Screenshots
+## Preview
 
-| Home | Weather |
-| --- | --- |
-| ![Home](screenshots/home.png) | ![Weather](screenshots/weather.png) |
-
-| Music | App drawer |
-| --- | --- |
-| ![Music](screenshots/music.png) | ![App drawer](screenshots/app.png) |
+![Echo Show Launcher](preview.gif)
 
 ## Files
 
@@ -38,11 +35,10 @@ wallpaper on a dark background.
 ## Build & install
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\EchoShowLauncher\build.ps1
-adb install -r .\EchoShowLauncher\EchoShowLauncher.apk
+powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
+adb install -r .\EchoShowLauncher.apk
 adb shell cmd package set-home-activity com.echoshow.launcher/.HomeActivity
 adb shell am start -a android.intent.action.MAIN -c android.intent.category.HOME
 ```
 
-Permissions: `INTERNET` for weather/radio, `READ_EXTERNAL_STORAGE` for local music
-(requested on first open of the music screen).
+Permissions: `INTERNET` for weather/radio, `READ_EXTERNAL_STORAGE` for local music.
